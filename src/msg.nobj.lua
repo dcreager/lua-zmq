@@ -57,6 +57,11 @@ int zmq_msg_init_data (zmq_msg_t *msg, void *data, size_t size, zmq_free_fn *ffn
 	${this} = &tmp;
 	${err} = zmq_msg_init_size(${this}, ${size});
 ]],
+		ffi_source[[
+	local tmp = ffi.new([=[ zmq_msg_t[1] ]=])
+	${err} = C.zmq_msg_init_size(tmp, ${size})
+	${this} = tmp
+]],
 	},
 	constructor "init_data" {
 		var_in{ "const char *", "data" },
